@@ -1,0 +1,117 @@
+// setting nest cli
+$ npm i -g @nestjs/cli
+$ nest new project-name
+
+// create new project
+$ nest new project-name
+
+in src keeping only main.ts and app.module.ts
+
+// creating task module
+$ nest g module tasks
+
+// creating task controller
+$ nest g controller task --no-spec
+
+// providers and services
+// creating task services
+$ nest g service tasks --no-spec
+
+// service:
+  defined as providers but not all providers are services
+
+  singleton when wrapped with @Injectable() and provided to
+  a module. That means, the same instance will be shared
+  across the application - acting as a single source of
+  truth.
+
+
+  dependency injection in nestjs is done within the
+  constructor of the class.
+
+  so taskService is injected into the taskController
+  using taskController's constructor.
+
+  like how I created a constructor in tasks.controller.ts
+
+  // Creating a simple get all tasks request
+
+  Creating Task model using interface and enums
+
+  // Creating POST request for createTask
+  Learnt how to extract data from body sent over request
+
+  @Post()
+  createTask(
+    // @Body() body /* use this or below one */
+    @Body('title') title: string,
+    @Body('description') description: string,
+  ): Task {
+    return this.tasksService.createTask(title, description);
+  }
+
+  also installing uuid package
+
+  // DTOs
+  defines how data is send over a network
+  should be created in classes
+
+  creating createTaskDto
+
+
+  SO, in summary
+  data can be accessed using @Body(), @Param() and @Query()
+
+
+  pipes used for data transformation and validation, on the 
+  data received by the server
+
+  diff types of pipes are:
+    gloabl-level pipes (using app.useGlobalPipes() in bootstrap function),
+    handler-level pipes (using @UsePipes decorator)
+    parameter-level pipes 
+
+  installing class-validator and class-transformer packages
+
+  can add validators inside DTOs, and 
+  access them by using ValidationPipe class 
+  in the Method handler or Parameters handler
+
+  can also create custom pipline by extending class
+  PipeTransform
+
+
+  ====================================================
+  DB integration
+
+  $ npm i @nestjs/typeorm typeorm pg 
+
+  after creating typeorm config,
+  then creating entity,
+  and after that Repository,
+  but REPOSITORY method is DEPRECEATED;
+
+
+  =================================================
+  Created Auth JWT strategy,
+  too much stuff there,
+  well it is what it is.
+
+  Also to use JwtStrategy you also have to import
+  PassportModule along with it.
+
+  use @AuthGuard() to guard the controller or the routes
+  can also create custom decorator, like GetUser which is
+  used by us.
+
+
+  =================================================
+  logging, see main.ts, auth module service > signup function
+  you can create instances of logger inside classes
+  and use them.
+
+  and you can do logger.log, error, warning, debug, verbose
+
+  =================================================
+  npm i config,
+  expects config folder in your ROOT directory, not src
